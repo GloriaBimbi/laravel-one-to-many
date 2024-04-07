@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <meta content="{{ csrf_token() }}" name="csrf-token">
-    <title>{{ env('APP_NAME', 'Laravel project') }} - @yield('title', 'My page') </title>
+    <title>{{ env('APP_NAME', 'Laravel Boolfolio') }} - @yield('title', 'My page') </title>
 
     @vite('resources/js/app.js')
 
