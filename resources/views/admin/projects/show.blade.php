@@ -15,10 +15,34 @@
 
         <div class="d-flex gap-5 mt-5">
             <a class="btn btn-warning" href="{{ route('admin.project.edit', $project) }}"><i class="fa-solid fa-pencil"></i> Edit <i>"{{ $project->title }}"</i> Project </a>
-            <a class="btn btn-danger" href="{{ route('admin.project.destroy', $project) }}"><i class="fa-solid fa-trash"></i> Delete <i>"{{ $project->title }}"</i> Project </a>
+            <a class="btn btn-danger" href="{{ route('admin.project.destroy', $project) }}" data-bs-target="#delete-project-{{ $project->id }}-modal" data-bs-toggle="modal"><i class="fa-solid fa-trash"></i> Delete <i>"{{ $project->title }}"</i> Project </a>
         </div>
     </div>
 </section>
+@endsection
+
+@section('modal')
+<div class="modal fade" id="delete-project-{{ $project->id }}-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete Project</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          You are deleting. This operation is not reversible. Are you sure you want to proceed? 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <form action="{{ route('admin.project.destroy', $project) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button class="btn btn-danger">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection
 
 @section('css')
