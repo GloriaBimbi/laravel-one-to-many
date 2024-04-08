@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -14,7 +15,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::paginate(5);
+        $projects = Project::orderBy('id', 'DESC')->paginate(5);
         return view('admin.projects.index', compact('projects'));
     }
 
@@ -24,7 +25,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.projects.create');
     }
 
     /**
@@ -34,7 +35,15 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $project = new Project;
+        $project->fill($data);
+        $project->slug = Str::slug($project->title);
+        $project->save();
+
+        return redirect()->route('admin.project.show', $project);
+
     }
 
     /**
@@ -54,7 +63,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return view('admin.projects.edit', compact('project'));
+
     }
 
     /**
@@ -65,7 +75,6 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
     }
 
     /**
