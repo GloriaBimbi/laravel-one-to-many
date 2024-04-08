@@ -26,7 +26,7 @@
                     <td>{{$project->slug}}</td>
                     <td>
                         <a href="{{ route('admin.project.show', $project) }}" class="btn btn-primary my-1 px-5"><i class="fa-solid fa-eye"></i></a>
-                        <a href="{{ route('admin.project.update', $project) }}" class="btn btn-warning my-1 px-5"><i class="fa-solid fa-pencil"></i></a>
+                        <a href="{{ route('admin.project.edit', $project) }}" class="btn btn-warning my-1 px-5"><i class="fa-solid fa-pencil"></i></a>
                         <a class="btn btn-danger my-1 px-5" data-bs-target="#delete-project-{{ $project->id }}-modal" data-bs-toggle="modal"><i class="fa-solid fa-trash"></i></a>                    </td>
                 </tr>
                 @empty

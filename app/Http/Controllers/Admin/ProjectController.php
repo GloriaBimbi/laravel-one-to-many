@@ -75,6 +75,12 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
+        $data = $request->all();
+        $project->fill($data);
+        $project->slug = Str::slug($project->title); // prevedo l'aggiornamento dello slug nel caso in cui il titolo venga modificato (dato che questa operazione va tra il fill r il save, non uso come si fa di solito l'update (che fa fill e save insieme, ma li spezzo in fill e save per poter mettere questa operazione tra i due))
+        $project->save();
+
+        return redirect()->route('admin.project.show', $project);
     }
 
     /**
