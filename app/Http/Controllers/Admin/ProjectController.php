@@ -25,7 +25,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        // dato che sto usando una vista che richiede un $project e solitamente nella create() non c'è, ne creo uno e ne passo uno vuoto
+        $project = new Project;
+        return view('admin.projects.form', compact('project'));
     }
 
     /**
@@ -63,7 +65,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        return view('admin.projects.form', compact('project'));
 
     }
 
