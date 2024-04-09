@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
+use App\Http\Requests\StoreProjectRequest;
+use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -35,8 +37,11 @@ class ProjectController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      */
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
+        //validazione
+        $request->validated();
+
         $data = $request->all();
 
         $project = new Project;
@@ -75,8 +80,11 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Project  $project
      */
-    public function update(Request $request, Project $project)
+    public function update(UpdateProjectRequest $request, Project $project)
     {
+        //validazione
+        $request->validated();
+        
         $data = $request->all();
         $project->fill($data);
         $project->slug = Str::slug($project->title); // prevedo l'aggiornamento dello slug nel caso in cui il titolo venga modificato (dato che questa operazione va tra il fill r il save, non uso come si fa di solito l'update (che fa fill e save insieme, ma li spezzo in fill e save per poter mettere questa operazione tra i due))
