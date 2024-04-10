@@ -9,14 +9,14 @@
 
         <h1>{{ empty($project->id) ? 'New Project' : 'Edit Project' }}</h1>
         @if ($errors->any())
-                            <div class="alert alert-danger my-3">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
+            <div class="alert alert-danger my-3">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form action="{{ empty($project->id) ? route('admin.project.store') : route('admin.project.update', $project) }}" method="POST" class="mb-5 row g-3">
             @csrf
             @unless(empty($project->id))
@@ -44,7 +44,7 @@
             <div class="mb-3 col-12">
               <label for="content" class="form-label">Content</label>
               <br>
-              <textarea class="form-control @error('content') is-invalid @enderror" name="content" id="content" cols="105" rows="10">{{ old('content', $project->content) }}</textarea>
+              <textarea class="form-control @error('content') is-invalid @enderror" name="content" id="content" cols="105" rows="3">{{ old('content', $project->content) }}</textarea>
               @error('content')
                 <div class="invalid-feedback">{{ $message }}</div>
               @enderror

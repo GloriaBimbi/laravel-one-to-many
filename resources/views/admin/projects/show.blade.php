@@ -10,7 +10,7 @@
         
         <h1 class="mt-5">{{ $project->title }}</h1>
         <div class="mb-5"><b>Slug:</b> {{ $project->slug }}</div>
-        <div class="mb-5"><b>Type:</b> {{ $project->type->label }}</div>
+        <div class="mb-5"><b>Type:</b> {!! $project->type->getBedge() !!}</div>
 
 
         <p>{{ $project->content }}</p>
@@ -32,7 +32,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          You are deleting. This operation is not reversible. Are you sure you want to proceed? 
+          You are deleting "{{ $project->title }}" project. This operation is not reversible. Are you sure you want to proceed? 
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

@@ -23,7 +23,7 @@
                 @forelse($projects as $project)
                 <tr>
                     <td>{{$project->title}}</td>
-                    <td>{{$project->type->label}}</td>
+                    <td>{!! $project->type->getBedge() !!}</td>
                     <td>{{$project->getAbstract(100)}}</td>
                     <td>{{$project->slug}}</td>
                     <td>
@@ -33,7 +33,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="100%">Nessun Progetto trovato</td>
+                  <td colspan="100%">No Projects Found...</td>
                 </tr>
                 @endforelse
             </tbody>
@@ -54,7 +54,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              You are deleting. This operation is not reversible. Are you sure you want to proceed? 
+              You are deleting "{{ $project->title }}" project. This operation is not reversible. Are you sure you want to proceed? 
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
