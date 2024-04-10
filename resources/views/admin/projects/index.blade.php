@@ -13,6 +13,7 @@
             <thead>
                 <tr>
                     <th>Title</th>
+                    <th>Type</th>
                     <th>Abstract</th>
                     <th>Slug</th>
                     <th></th>
@@ -22,6 +23,7 @@
                 @forelse($projects as $project)
                 <tr>
                     <td>{{$project->title}}</td>
+                    <td>{{$project->type->label}}</td>
                     <td>{{$project->getAbstract(100)}}</td>
                     <td>{{$project->slug}}</td>
                     <td>

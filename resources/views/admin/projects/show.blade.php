@@ -10,10 +10,12 @@
         
         <h1 class="mt-5">{{ $project->title }}</h1>
         <div class="mb-5"><b>Slug:</b> {{ $project->slug }}</div>
+        <div class="mb-5"><b>Type:</b> {{ $project->type->label }}</div>
+
 
         <p>{{ $project->content }}</p>
 
-        <div class="d-flex gap-5 mt-5">
+        <div class="d-flex gap-5 my-5">
             <a class="btn btn-warning" href="{{ route('admin.project.edit', $project) }}"><i class="fa-solid fa-pencil"></i> Edit <i>"{{ $project->title }}"</i> Project </a>
             <a class="btn btn-danger" href="{{ route('admin.project.destroy', $project) }}" data-bs-target="#delete-project-{{ $project->id }}-modal" data-bs-toggle="modal"><i class="fa-solid fa-trash"></i> Delete <i>"{{ $project->title }}"</i> Project </a>
         </div>
