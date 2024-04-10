@@ -22,10 +22,22 @@
             @unless(empty($project->id))
                 @method('PATCH')
             @endunless
-            <div class="mb-3 col-10">
+            <div class="mb-3 col-6">
               <label for="title" class="form-label">Title</label>
               <input type="text" class="form-control @error('title') is-invalid @enderror" id="title"  name="title" value={{ old('title', $project->title) }}>
               @error('title')
+                <div class="invalid-feedback">{{ $message }}</div>
+              @enderror
+            </div>
+            <div class="mb-3 col-6">
+              <label for="type_id" class="form-label">Type</label>
+              <select name="type_id" id="type_id" class="form-select @error('type_id') is-invalid @enderror">
+                <option value="" class="d-none">Select Type</option>
+                @foreach($types as $type)
+                  <option {{ $type->id == old('type_id', $project->type_id) ? 'selected' : '' }} value="{{ $type->id }}">{{$type->label}}</option>
+                @endforeach
+              </select>
+              @error('type_id')
                 <div class="invalid-feedback">{{ $message }}</div>
               @enderror
             </div>

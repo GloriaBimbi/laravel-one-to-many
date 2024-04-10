@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -29,7 +30,9 @@ class ProjectController extends Controller
     {
         // dato che sto usando una vista che richiede un $project e solitamente nella create() non c'è, ne creo uno e ne passo uno vuoto
         $project = new Project;
-        return view('admin.projects.form', compact('project'));
+        //mi passo dal cotnroller la lista di tutte le categorie in modo da poterle usare in un ciclo nel form per generare tante option della select quante sono le categorie
+        $types = Type::all();
+        return view('admin.projects.form', compact('project', 'types'));
     }
 
     /**
@@ -48,6 +51,7 @@ class ProjectController extends Controller
         $project->fill($data);
         $project->slug = Str::slug($project->title);
         $project->save();
+
 
         return redirect()->route('admin.project.show', $project);
 
@@ -70,7 +74,10 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.form', compact('project'));
+        //mi passo dal cotnroller la lista di tutte le categorie in modo da poterle usare in un ciclo nel form per generare tante option della select quante sono le categorie
+        $types = Type::all();
+
+        return view('admin.projects.form', compact('project', 'types'));
 
     }
 

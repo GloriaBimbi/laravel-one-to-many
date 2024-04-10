@@ -26,6 +26,8 @@ class UpdateProjectRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'content' => 'required|string',
+            //mi accerto che il type_id esista nella tabella types, nella colonna id
+            'type_id' => 'required|exists:types,id',
         ];
     }
 
@@ -37,11 +39,13 @@ class UpdateProjectRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.require' => 'The title is mandatory',
-            'title.string' => 'The title must be a text',
-            'title.max' => 'The title must be a maximum of :max characters',
-            'content.require' => 'The content is mandatory',
-            'content.string' => 'The content must be a text',
+            'title.require' => 'The Title is mandatory',
+            'title.string' => 'The Title must be a text',
+            'title.max' => 'The Title must be a maximum of :max characters',
+            'content.require' => 'The Content is mandatory',
+            'content.string' => 'The Content must be a text',
+            'type_id.required' => 'The Type field is required',
+            'type_id.exists' => 'The Type must be one of the avaiable options',
         ];
     }
 }
