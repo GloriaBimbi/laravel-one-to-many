@@ -48,7 +48,9 @@
     @foreach($types as $type)
     <div class="modal fade" id="delete-type-{{ $type->id }}-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
+          <form action="{{ route('admin.types.destroy', $type) }}" method="POST" class="modal-content">
+            @csrf
+            @method('DELETE')
             <div class="modal-header">
               <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete Type</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -57,18 +59,23 @@
               You are deleting {!! $type->getBedge() !!} type. This operation is not reversible.
               <br></br>
               <strong><strong class="text-danger">Attention: </strong>this procedure will delete every single related Projects.</strong>
-              <br>
-              Are you sure you want to proceed? 
+              <br></br>
+              <div>Choose another Type for the Project related to the Type you want to delete:</div>
+              <select class="form-select mt-2" name="delete-action" id="delete-action">
+                <option value="delete">Delete Projects</option>
+
+                @foreach($types as $type_option)
+                  @if($type_option->id != $type->id)
+                    <option value="{{ $type_option->id}}">Associa a: "{{ $type_option->label }}"</option>
+                  @endif
+                @endforeach
+              </select>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <form action="{{ route('admin.types.destroy', $type) }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button class="btn btn-danger">Delete</button>
-              </form>
+              <button class="btn btn-danger">Delete</button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     @endforeach

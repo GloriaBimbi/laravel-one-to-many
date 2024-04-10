@@ -86,13 +86,25 @@ class TypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Type  $type
      */
-    public function destroy(Type $type)
+    public function destroy(Request $request, Type $type)
     {
-        //alla cancellazione del type cancello tutti i postad essa associati
-        foreach($type->projects as $project){
-            $project->delete();
+        //recupero il valore dell'attributo delete-action inviato dal form della model della index dei type per capire se lo user vuole cancellare i projects (delete) o associarli ad un altro type
+        $action = $request->input('delete-action');
+
+        if ($action === 'delete'){
+            //alla cancellazione del type cancello tutti i postad essa associati
+            foreach($type->projects as $project){
+                $project->delete();
+            }
+        } else {
+            // altrimenti associamo ogni post della categoria cancellata al type scelto dallo user con la select sulla model nella index dei types
+            foreach($type->projects as $project){
+                $project->type_id = $action;
+                $project->save();
+            }
         }
         
         $type->delete();
